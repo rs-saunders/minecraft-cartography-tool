@@ -1,0 +1,1 @@
+var mapWallApp = angular.module('mapWallApp', []);

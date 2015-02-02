@@ -1,0 +1,135 @@
+
+body {
+	margin-top: 20px;
+}
+
+#configForm .form-group {
+	vertical-align: top;
+}
+
+#configForm #coords {
+	width: 200px;
+}
+
+#configForm #rows {
+	width: 80px;
+}
+
+#configForm #columns {
+	width: 80px;
+}
+
+#mapWallWrapper {
+	overflow: auto;
+	padding: 0px;
+	background-color: skyblue;
+}
+
+#mapWall {
+	margin: 0px;
+	padding: 0px;
+	font-size: 0; /* removes inline-block gaps between divs */
+}
+
+#mapWall .row {
+	white-space: nowrap;
+	margin: 0px 0px;
+	padding: 0px 0px;
+}
+
+#mapWall .block {
+	position: relative;
+	display: block;
+	display: inline-block;
+	width: 64px;
+	height: 64px;
+	padding: 0px;
+	margin: 0px;
+}
+
+#mapWall .row.top .block {
+	margin-top: 114px;
+}
+
+#mapWall .block.firstInRow {
+	margin-left: 64px;
+}
+
+#mapWall .block.lastInRow {
+	margin-right: 64px;
+}
+
+/* trick the background into being over what would be the right margin */
+#mapWall .block.lastInRow.ground {
+	margin-right: 0px;
+	width: 128px;
+}
+
+#mapWall .map {
+	background-image: url('../images/itemframe_background.png'), url('../images/planks_oak.png');
+	background-position: center, top left;
+	background-repeat: no-repeat, no-repeat;
+	background-size: 48px 48px, 64px 64px;
+}
+
+#mapWall .mapStart {
+	background-image: url('../images/Grid_Compass.png'), url('../images/itemframe_background.png'), url('../images/planks_oak.png');
+	background-position: center, center, top left;
+	background-repeat: no-repeat, no-repeat, no-repeat;
+	background-size: auto, 48px 48px, 64px 64px;
+}
+
+#mapWall .leftPole,
+#mapWall .rightPole {
+	background: url('../images/log_oak.png');
+	background-size: 64px 64px;
+}
+
+#mapWall .ground {
+	background: url('../images/grass_side.png');
+	background-size: 64px 64px;
+}
+
+#mapWall .hoverTarget {
+	display: block;
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	margin: auto;
+	cursor: crosshair;
+ 	/*background-color: blue; */
+}
+
+#mapWall .hoverTarget:hover {
+	/*background-color: blue;*/
+}
+
+#mapWall .hoverTarget.topLeft {
+	left: 0px;
+	top: 0px;
+}
+
+#mapWall .hoverTarget.topRight {
+	left: 48px;
+	top: 0px;
+}
+
+#mapWall .hoverTarget.centre {
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	bottom: 0px;
+	width: 16px;
+	height: 16px;
+	
+}
+
+#mapWall .hoverTarget.bottomLeft {
+	left: 0px;
+	top: 48px;
+}
+
+#mapWall .hoverTarget.bottomRight {
+	left: 48px;
+	top: 48px;
+}

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en" ng-app="mapWallApp">
+<head>
+  <meta charset="utf-8">
+  <title>Minecraft Cartography Tool</title>
+  <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="app/app.js"></script>
+  <script src="app/mapWall/mapWall.js"></script>
+  <script src="app/mapWall/mapWallController.js"></script>
+</head>
+<body ng-controller="MapWallCtrl">
+
+<div class="container">
+  <div class="row">
+	<div class="col-md-12">
+	  <div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Settings</h3>
+	  </div>
+	  <div class="panel-body">	
+		<form id="configForm" name="configForm" class="form-inline">
+
+			<div class="form-group" ng-class="{'has-error': configForm.coords.$error.required 
+														 || configForm.coords.$error.pattern}">
+				<label for="coords" class="control-label">Coords (X,Z):</label>
+				<input id="coords" name="coords" type="text" size="10" ng-model="mapWall.config.coords"
+				       ng-pattern="/^-?\d+\,-?\d+$/" class="form-control" required></input>
+				<span class="help-block error" ng-show="configForm.coords.$error.required">Required!</span>
+				<span class="help-block error" ng-show="configForm.coords.$error.pattern">Not valid coordinates!</span>
+			</div>
+			
+			<div class="form-group" ng-class="{'has-error': configForm.columns.$error.required
+														 || configForm.columns.$error.number
+														 || configForm.columns.$error.min}">
+				<label for="columns" class="control-label">Width:</label>
+				<input id="columns" name="columns" type="number" size="3" min="1" ng-model="mapWall.config.columns" 
+					   class="form-control" required></input>
+				<span class="help-block error" ng-show="configForm.columns.$error.required">Required!</span>
+				<span class="help-block error" ng-show="configForm.columns.$error.number">Not valid number!</span>
+				<span class="help-block error" ng-show="configForm.columns.$error.min">Minimum 1 Required!</span>
+			</div>
+			
+			<div class="form-group" ng-class="{'has-error': configForm.rows.$error.required
+														 || configForm.rows.$error.number
+														 || configForm.rows.$error.min}">
+				<label for="rows" class="control-label">Height:</label>
+				<input id="rows" name="rows" type="number" size="3" min="1" ng-model="mapWall.config.rows"
+					   class="form-control" required></input>
+				<span class="help-block error" ng-show="configForm.rows.$error.required">Required!</span>
+				<span class="help-block error" ng-show="configForm.rows.$error.number">Not valid number!</span>
+				<span class="help-block error" ng-show="configForm.rows.$error.min">Minimum 1 Required!</span>
+			</div>
+			
+			<!-- <div class="form-group">
+				<label for="orientation" class="control-label">Orientation:</label>
+				<select id="orientation" name="orientation" ng-model="mapWall.config.orientation" class="form-control">
+					<option value="n">North</option>
+					<option value="s">South</option>
+					<option value="e">East</option>
+					<option value="w">West</option>
+				</select>
+			</div> -->
+			
+			<div class="form-group">
+				<label for="align" class="control-label">Align:</label>
+				<select id="align" name="align" ng-model="mapWall.config.align" class="form-control">
+					<option value="1">Top Left</option>
+					<option value="2">Top Right</option>
+					<option value="0">Centre</option>
+					<option value="3">Bottom Left</option>
+					<option value="4">Bottom Right</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<label for="zoom" class="control-label">Map Size:</label>
+				<select id="zoom" name="zoom" ng-model="mapWall.config.zoom" class="form-control">
+					<option ng-repeat="increment in  mapWall.settings.zoomMultiplier" value="{{ $index }}">
+						Zoom Step {{ $index }} (1: {{ increment }})
+					</option>
+				</select>
+			</div>	
+		</form>
+	  </div>
+	  </div>
+	</div>
+  </div>
+  <div class="row">
+
+	<div class="col-md-3">
+
+	  <div class="panel panel-default">
+	  <div class="panel-heading">
+	    <h3 class="panel-title">Summary</h3>
+	  </div>
+	  <div class="panel-body">	
+
+	  	<ul>
+	    	<li title="Maps"><img src="assets/images/Grid_Map.png"> {{ mapWall.stats.maps.area }} ({{ mapWall.stats.maps.x }} x {{ mapWall.stats.maps.z }})</li>
+	    	<!-- <li>Chunks: {{ mapWall.stats.chunks.area }} ({{ mapWall.stats.chunks.x }} x {{ mapWall.stats.chunks.z }})</li>
+	    	<li>Blocks: {{ mapWall.stats.blocks.area }} ({{ mapWall.stats.blocks.x }} x {{ mapWall.stats.blocks.z }})</li> -->
+	    	<li title="Sugarcane"><img src="assets/images/Grid_Sugar_Canes.png"> {{ mapWall.stats.recipe.sugarcane }}</li>
+	    	<li title="Iron Ingots"><img src="assets/images/Grid_Iron_Ingot.png"> {{ mapWall.stats.recipe.iron }}</li>
+	    	<li title="Redstone"><img src="assets/images/Grid_Redstone.png"> {{ mapWall.stats.recipe.redstone }}</li>
+	    	<li title="Paper"><img src="assets/images/Grid_Paper.png"> {{ mapWall.stats.recipe.paper }}</li>
+	    	<li title="Compasses"><img src="assets/images/Grid_Compass.png"> {{ mapWall.stats.recipe.compass }}</li>
+	    	
+	    	<li title="Logs"><img src="assets/images/Grid_Oak_Wood.png"> {{ mapWall.stats.recipe.logs }}</li>
+	    	<li title="Planks"><img src="assets/images/Grid_Oak_Wood_Planks.png"> {{ mapWall.stats.recipe.planks }}</li>
+	    	<li title="Sticks"><img src="assets/images/Grid_Stick.png"> {{ mapWall.stats.recipe.sticks }}</li>
+	    	<li title="Leather"><img src="assets/images/Grid_Leather.png"> {{ mapWall.stats.recipe.leather }}</li>
+	    	<li title="Item Frames"><img src="assets/images/Grid_Item_Frame.png"> {{ mapWall.stats.recipe.itemFrames }}</li>
+	    </ul> 
+	   
+	    <!-- <svg>
+	   		<defs>
+	   			<marker id="markerArrow" markerWidth="13" markerHeight="13" refx="2" refy="6" orent="auto">
+	   				<path d="M2,2 L2,11 L10,6 L2,2" style="stroke:#CCC; stroke-columns: 1px; fill:none;" />
+	   			</marker>
+	   		</defs>
+	   		<path d="M10,0 L10,20 A10,10 0 0,0 20,30
+	   				 L40,30 A10,10 0 0,1 50,40 
+	   				 M90,0 L90,20 A10,10 0 0,1 80,30
+	   				 L60,30 A10,10 0 0,0 50,40 L50,60"
+	   			  style="stroke:#CCC; stroke-columns: 5px; fill: none;" />
+	    </svg>  -->
+	  </div>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+	  <div class="panel panel-default">
+	  <div id="mapWallWrapper"  class="panel-body">
+		<div id="mapWall">
+		
+		  	<div ng-repeat-start="column in mapWall.grid" 
+			     ng-init="rowIndex = $index" 
+			     id="row_{{rowIndex}}" 
+			     class="row" ng-class="{true: 'top'}[$first]">
+			    <div class="block firstInRow leftPole"></div>
+				<div ng-repeat="map in column" 
+				     ng-init="columnIndex = $index" 
+				     id="map_{{rowIndex}}_{{columnIndex}}" 
+				     class="block map"
+				     ng-class="{'mapStart': map.start}">
+					<span class="hoverTarget topLeft" title="X:{{map.topLeft.x}}, Z:{{map.topLeft.z}}"></span>
+	<!-- 				<span class="hoverTarget top" title="Z:{{map.topLeft.z}}"></span> -->
+					<span class="hoverTarget topRight" title="X:{{map.topRight.x}}, Z:{{map.topRight.z}}"></span>
+	<!-- 				<span class="hoverTarget right" title="X:{{map.topRight.x}}"></span> -->
+					<span class="hoverTarget centre" title="X:{{map.centre.x}}, Z:{{map.centre.z}}"></span>
+					<span class="hoverTarget bottomLeft" title="X:{{map.bottomLeft.x}}, Z:{{map.bottomLeft.z}}"></span>
+	<!-- 				<span class="hoverTarget bottom" title="Z:{{map.bottomLeft.z}}"></span> -->
+					<span class="hoverTarget bottomRight" title="X:{{map.bottomRight.x}}, Z:{{map.bottomRight.z}}"></span>
+	<!-- 				<span class="hoverTarget left" title="X:{{map.bottomLeft.x}}"></span> -->
+				</div>
+				<div class="block lastInRow rightPole"></div>
+			</div>
+			
+			<div  ng-if="$last" class="row">
+				<div class="block firstInRow leftPole"></div>
+				<div ng-repeat="map in column" class="block"></div>
+				<div class="block lastInRow rightPole"></div>
+			</div>
+			
+			<div ng-repeat-end ng-if="$last" class="row ground">
+				<div class="block firstInRow ground"></div>
+				<div ng-repeat="map in column" class="block ground"></div>
+				<div class="block lastInRow ground"></div>
+			</div>	
+		</div>	
+	  </div>
+      </div>
+    </div>	
+  </div>
+</div>
+</body>
+</html>
