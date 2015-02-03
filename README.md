@@ -1,5 +1,7 @@
 # Minecraft Cartography Tool
 
+* http://binaryitch.co.uk/minecraft-cartography-tool/
+
 A tool to help create map walls in minecraft 1.8 or above. This web app was created as a demo of various web technologies and coding practices, including:
 
 * AngularJS - JavaScript framework
