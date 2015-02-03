@@ -20,26 +20,22 @@ to get it : [http://nodejs.org/download/](http://nodejs.org/download/)
 
 1. Clone the project `git clone https://github.com/rs-saunders/minecraft-cartography-tool.git` 
 2. From the root run `npm install`. This should also install bower dependencies automatically
-3. To run the application either open index.html in a browser or type npm start which makes it available on localhost:8080
-4. To run the Jasmine tests type npm test
+3. To run the application either open index.html in a browser or type `npm start` which makes it available on localhost:8080
+4. To run the Jasmine tests type `npm test`
 
 ## Usage
 
 It starts Pre configured for a 3x3 map wall aligned centre on coordinates 0,0 facing north. X coordinate from left to right and Z coordinate from top to bottom.
 
-
 1. Set the starting coordinates to where you want your map wall adjust the other settings to your liking. E.g. centre it on your base. Note: to find your coordinates in minecraft press the F3 key.
 2. Create the required number of maps as shown in the stats.
-3.Hover mouse over the centre and corners of the start map to view the map coordinates.
+3. Hover mouse over the centre and corners of the start map to view the map coordinates.
 4. In game, walk until your inside that map and use one of your blank maps.
 5. Repeat steps 3 and 4 for each map in the wall.
 6. Create the required number of item frames as shown in the stats the hang them up and place your maps in them
 
 
-
-
-
-Settings
+#### Settings
 * Coords - set the starting coordinates of the map wall. E.g. where your base is located. Note: to find your coordinates in minecraft press the F3 key.
 * Width - adjust how many maps wide you want your map wall
 * Height - adjust how many maps tall you want your map wall
