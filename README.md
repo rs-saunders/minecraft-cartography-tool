@@ -63,22 +63,22 @@ The stats show the total number of each item you need in order to build the curr
 ## History
 
 * Version 0.1.0: basic feature set.
-** Adjust settings, starting coordinates, width, height, alignment and zoom level 
-** View the stats in a basic list
-** hover over maps to see coordinates
+  * Adjust settings, starting coordinates, width, height, alignment and zoom level 
+  * View the stats in a basic list
+  * hover over maps to see coordinates
 
 ## Impovements
 
 * Ability to change map wall orientation, North, South, East, West
 * Display coordinate or each map wall as list
-** Hover over the list highlights the map on the wall and vica versa
-** Choice of which corner or the centre coordinate to view for each map in the list
+  * Hover over the list highlights the map on the wall and vica versa
+  * Choice of which corner or the centre coordinate to view for each map in the list
 * Improve coordinates tooltip on hover of each map
 * Click each map to mark it as complete
 * Store the name of each completed map e.g. (Map_01) so it makes it easier to put them in the right item frames
 * Save map wall settings to browser's web storage so it remembers next time you reload
 * Display stats showing which ingredients go into which other ingredients
-** e.g. show that iron ingots and redstone go in to make the compasses
+  * e.g. show that iron ingots and redstone go in to make the compasses
 * Improve overall site styling
 * Add help text
 
